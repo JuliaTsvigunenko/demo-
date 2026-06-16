@@ -128,3 +128,26 @@ https://github.com/JuliaTsvigunenko/demo-
 8) во всю ширину контейнер 
 
 AutoSizeColumnsMode   выставляем Full
+
+
+9) Привет! Начинаем новую задачу шаг за шагом, никуда не спешим.
+
+Мой стек: Visual Studio 2019, .NET 5 (Windows Forms), PostgreSQL.
+Мой подход: Интерфейс окон я проектирую строго вручную (перетаскиваю кнопки, таблицы и текстовые поля мышкой из Панели инструментов). От тебя мне нужны будут только точные настройки для свойств этих элементов и чистый код логики.
+
+Вот описание новой задачи:
+(Сюда вставляешь текст задания)
+
+Давай начнем с Шага 1: База данных. > Напиши мне SQL-скрипт для создания таблиц в PostgreSQL и тестовые данные для них (минимум 3–5 строк на таблицу), чтобы я могла развернуть БД в pgAdmin, что бы не было связей многие ко многим и соблюдались все 3НФ (нормальные формы) . Дальше этого шага пока не иди, я скажу, когда буду готова.
+
+
+после мои действия это:
+nstall-Package Microsoft.EntityFrameworkCore
+Install-Package Microsoft.EntityFrameworkCore.Tools
+Install-Package Npgsql.EntityFrameworkCore.PostgreSQL
+
+после вводим команду 
+
+Scaffold-DbContext "Host=localhost;Port=5432;Database=sklad_db_1;Username=postgres;Password=1234" Npgsql.EntityFrameworkCore.PostgreSQL -OutputDir Models -Force
+
+для того чтобы связать бд и папку models он мне создал со всеми классами
