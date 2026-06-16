@@ -1,0 +1,130 @@
+1) меняем версию (если возникнут ошибки)
+
+<Project Sdk="Microsoft.NET.Sdk">
+ <PropertyGroup>
+  <OutputType>WinExe</OutputType>
+  <TargetFramework>net5.0-windows</TargetFramework>
+  <UseWindowsForms>true</UseWindowsForms>
+ </PropertyGroup>
+</Project>
+
+
+
+Program
+
+
+
+using System;
+using System.Windows.Forms;
+using dentistry.Forms;
+
+namespace dentistry
+{
+    static class Program
+    {
+        /// <summary>
+        ///  The main entry point for the application.
+        /// </summary>
+        [STAThread]
+        static void Main()
+        {
+            // Настройки конфигурации приложения, характерные для .NET 5 / .NET Core 3.1
+            Application.SetHighDpiMode(HighDpiMode.SystemAware);
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
+            // Запуск главной формы
+            Application.Run(new MainForm());
+        }
+    }
+}
+
+
+2) Библиотеки
+
+Microsoft.EntityFrameworkCore
+Microsoft.EntityFrameworkCore.Tools
+Npgsql.EntityFrameworkCore.PostgreSQL
+
+За что отвечает каждый пакет:
+
+Microsoft.EntityFrameworkCore
+Зачем нужен: Это «мозг» всей системы, само ядро технологии ORM (Object-Relational Mapping). Этот пакет позволяет тебе вообще забыть про написание тяжелых SQL-запросов прямо внутри C#. Он превращает таблицы из базы данных в удобные C#-классы (модели), а строки — в обычные списки объектов, с которыми можно работать через стандартный LINQ.
+
+Microsoft.EntityFrameworkCore.Tools
+Зачем нужен: Это набор инструментов для разработчика. Именно этот пакет «учит» консоль Visual Studio понимать специальные команды автоматизации. Без него Студия просто выдаст ошибку, когда ты попытаешься запустить команду Scaffold-DbContext.
+
+Npgsql.EntityFrameworkCore.PostgreSQL
+Зачем нужен: Это «переводчик» или драйвер. Сама по себе технология Entity Framework от Microsoft изначально «разговаривает» только с родной СУБД SQL Server. Данный пакет объясняет системе, как правильно переводить C#-код на специфичный язык PostgreSQL, учитывая все его особенности.
+
+3) после вводим команду 
+
+Scaffold-DbContext "Host=localhost;Port=5432;Database=sklad_db_1;Username=postgres;Password=1234" Npgsql.EntityFrameworkCore.PostgreSQL -OutputDir Models -Force
+
+
+4) пример объяснения
+
+1. Строка: Название товара
+Label1 (Текст на экране): Наименование товара:
+
+TextBox рядом: меняем свойство (Name) на tbProductName
+
+2. Строка: Категория
+Label2 (Текст на экране): Категория:
+
+TextBox рядом: меняем свойство (Name) на tbCategory
+
+3. Строка: Единица измерения
+Label3 (Текст на экране): Единица измерения (ед. изм.):
+
+TextBox рядом: меняем свойство (Name) на tbUnit
+
+Совет для экзамена: можно поставить туда по умолчанию текст "шт."
+
+4. Строка: Цена товара
+Label4 (Текст на экране): Цена за единицу (руб.):
+
+NumericUpDown рядом: меняем свойство (Name) на numPrice
+
+Важная настройка в Свойствах: Найди свойство Maximum и поставь туда 999999 (чтобы можно было вводить большие суммы), а в свойство DecimalPlaces поставь 2 (чтобы цена была с копейками, например 150.50).
+
+5. Строка: Начальный остаток
+Label5 (Текст на экране): Начальный остаток на складе:
+
+NumericUpDown рядом: меняем свойство (Name) на numStock
+
+Настройка в Свойствах: Свойство Maximum поставь 10000, а DecimalPlaces оставь 0 (так как товар считается в целых штуках).
+
+6. Строка: Поставщик товара
+Label6 (Текст на экране): Поставщик:
+
+ComboBox рядом: меняем свойство (Name) на cbSupplier
+
+Настройка в Свойствах: Найди свойство DropDownStyle и выбери DropDownList. Это заблокирует ручной ввод текста, и пользователь сможет выбирать поставщика только кликом из готового списка базы данных.
+
+7. Строка: Кнопка сохранения (внизу формы)
+Button (Текст на экране): Добавить товар
+
+Меняем свойство (Name) на btnSave
+
+5) Назначение даты и времени
+
+Найди свойство Format. По умолчанию там стоит значение Long. Нажми на него и в выпадающем списке выбери Custom (Пользовательский).
+
+Прямо под ним найди свойство CustomFormat (оно станет активным).
+
+Впиши туда руками следующую строку формата:
+
+dd.MM.yyyy HH:mm
+
+6) ссылка на кирилла 
+
+https://github.com/kmarkow76/educationsystem
+
+7) ссылка на меня 
+
+https://github.com/JuliaTsvigunenko/demo-
+
+8) во всю ширину контейнер 
+
+AutoSizeColumnsMode   выставляем Full
